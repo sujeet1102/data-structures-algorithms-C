@@ -1,5 +1,5 @@
-main: *.c *.h
-	gcc -o main *.c *.h
+main: src/*.c src/*.h
+	gcc -o main src/*.c src/*.h
 
 clean:
 	rm main
