@@ -70,3 +70,13 @@ int missingSingle_array(staticArray);
 void missingMultiple_array(staticArray);
 void find_duplicate(staticArray);
 void sum_k_array(staticArray, int);
+/*------------Strings-------------*/
+int string_length(char *);
+void convert_uppercase(char *);
+void convert_lowercase(char *);
+bool validate_string(char *);
+void reverse_string(char *);
+bool check_palindromeString(char *);
+void duplicate_string(char *);
+int check_anagramstring(char *, char *);
+void perm_string(char *, int);
