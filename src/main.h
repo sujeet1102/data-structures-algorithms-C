@@ -22,6 +22,11 @@ typedef struct staticArray {
     bool array_full;
 } staticArray;
 
+typedef struct Matrix{
+    int A[10];
+    int n;  //dimension
+} Matrix;
+
 /*-------FUNCTION-PROTOTYPES-------*/
 
 /*--------functions-basic----------*/
@@ -80,3 +85,10 @@ bool check_palindromeString(char *);
 void duplicate_string(char *);
 int check_anagramstring(char *, char *);
 void perm_string(char *, int);
+/*-----------Matrices------------*/
+void display_diagonalMatrix(Matrix);
+void set_diagonalMatrix(Matrix *, int, int, int);
+int get_diagonalMatrix(Matrix, int, int);
+void set_lotriangMatrix(Matrix *, int, int, int);
+int get_lotriangMatrix(Matrix, int, int);
+void display_lotriangMatrix(Matrix);
