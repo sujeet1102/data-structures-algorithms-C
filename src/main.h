@@ -4,8 +4,8 @@
 
 /*-----------STRUCTURES-----------*/
 typedef struct rectangle {
-	int length;
-	int breadth;
+    int length;
+    int breadth;
 } Rectangle;
 
 typedef struct dynamicArray {
@@ -26,6 +26,29 @@ typedef struct Matrix{
     int A[10];
     int n;  //dimension
 } Matrix;
+
+typedef struct Element{
+    int i;
+    int j;
+    int x;
+} Element;
+
+typedef struct SparseMatrix{
+    int m;  //rows
+    int n;  //columns
+    int num;    //non-zero elements
+    Element *E;
+} SparseMatrix;
+
+typedef struct Term{
+    int coeff;
+    int expo;
+} Term;
+
+typedef struct Polynomial{
+    int n;
+    Term *T;
+} Polynomial;
 
 /*-------FUNCTION-PROTOTYPES-------*/
 
@@ -92,3 +115,10 @@ int get_diagonalMatrix(Matrix, int, int);
 void set_lotriangMatrix(Matrix *, int, int, int);
 int get_lotriangMatrix(Matrix, int, int);
 void display_lotriangMatrix(Matrix);
+void Initialize_sparseMatrix(SparseMatrix *);
+void display_sparseMatrix(SparseMatrix);
+SparseMatrix* add_sparseMatrix(SparseMatrix *, SparseMatrix *);
+void Initialize_polynomial(Polynomial *);
+int evaluate_polynomial(Polynomial, int);
+Polynomial* add_polynomial(Polynomial *, Polynomial *);
+void display_polynomial(Polynomial);
