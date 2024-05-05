@@ -50,6 +50,11 @@ typedef struct Polynomial{
     Term *T;
 } Polynomial;
 
+typedef struct Node{
+    int data;
+    struct Node *next;
+} Node;
+
 /*-------FUNCTION-PROTOTYPES-------*/
 
 /*--------functions-basic----------*/
@@ -122,3 +127,26 @@ void Initialize_polynomial(Polynomial *);
 int evaluate_polynomial(Polynomial, int);
 Polynomial* add_polynomial(Polynomial *, Polynomial *);
 void display_polynomial(Polynomial);
+/*---------Linked-Lists----------*/
+void create_LL_array(int [], int, Node **);
+void display_LL(Node *);
+void display_LL_recursive(Node *);
+int count_LL(Node *);
+int sum_elements_LL(Node *);
+int max_element_LL(Node *);
+int min_element_LL(Node *);
+Node* linear_search_LL(Node *, int);
+int get_LL(Node *, Node *);
+void insert_LL(Node **, int, int);
+void insert_sorted_LL(Node **, int);
+int delete_LL(Node **, int);
+bool check_sorted_LL(Node *);
+void delete_duplicate_LL(Node **);
+void reverse_elements_LL(Node *);
+void reverse_LL(Node **);
+void reverse_recusrion_LL(Node **, Node *, Node *);
+void merge_sorted_LL(Node **, Node **, Node **);
+void display_circular_LL(Node *);
+int count_circular_LL(Node *);
+void create_circular_LL_array(int [], int, Node **);
+void insert_circular_LL(Node **, int, int);
