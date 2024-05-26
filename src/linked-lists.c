@@ -22,6 +22,7 @@ void display_LL(Node *p){
         printf("%d ", p->data);
         p = p->next;
     }
+    printf("\n");
 }
 
 void display_LL_recursive(Node *p){
@@ -111,7 +112,6 @@ int get_LL(Node *p, Node *o){
 */
 void insert_LL(Node **first, int n, int x){
     
-    if((n < 0) || (n > count_LL(*first))) return;
     Node *new_node = (Node*)malloc(sizeof(Node));
     new_node->data = x;
 
@@ -154,7 +154,6 @@ void insert_sorted_LL(Node **first, int x){
 
 int delete_LL(Node **first, int n){
     
-    if((n < 0) && (n >= count_LL(*first))) return 0;
     Node *p = *first;
     if(n == 0){
         *first = (*first)->next;
@@ -293,6 +292,7 @@ void display_circular_LL(Node *head){
         printf("%d ", p->data);
         p = p->next;
     }while(p != head);
+    printf("\n");
 }
 
 void create_circular_LL_array(int arr[], int n, Node **head){
@@ -324,7 +324,6 @@ int count_circular_LL(Node *head){
 
 void insert_circular_LL(Node **first, int n, int x){
     
-    if((n < 0) || (n > count_circular_LL(*first))) return;
     Node *new_node = (Node*)malloc(sizeof(Node));
     new_node->data = x;
 
@@ -353,3 +352,258 @@ void insert_circular_LL(Node **first, int n, int x){
         }
     }
 }
+
+int delete_circular_LL(Node **head, int n){
+    
+    if(n < 0 || n > count_circular_LL(*head)) return -1;
+    int r;
+    Node *p = *head;
+    Node *q = NULL;
+    if(n == 0){
+        q = (*head)->next;
+        while(q->next != *head){
+            q = q->next;
+        }
+        if(q == *head){
+            r = q->data;
+            free(*head);
+            *head = NULL;
+        }
+        else{
+            q->next = p->next;
+            *head = (*head)->next;
+            r = p->data;
+            free(p);
+        }
+        return r;
+    }
+    else{
+        for(int i = 0; (i < n-1) && (p != NULL); i++){
+            p = p->next;
+        }
+        if(p->next){
+            Node *s = p->next;
+            p->next = s->next;
+            int r = s->data;
+            free(s);
+            return r;
+        }
+    }
+}
+
+void create_doubly_LL_array(int arr[], int n, doubly_Node **first){
+    int i;
+    doubly_Node *t, *last;
+    (*first) = (doubly_Node*)malloc(sizeof(doubly_Node));
+    (*first)->data = arr[0];
+    (*first)->prev = NULL;
+    (*first)->next = NULL;
+    last = (*first);
+    
+    for(i = 1; i < n; i++){
+        t = (doubly_Node*)malloc(sizeof(doubly_Node));
+        t->data = arr[i];
+        t->prev = last;
+        t->next = last->next;
+        last->next = t;
+        last = t;
+    }
+}
+
+void display_doubly_LL(doubly_Node *p){
+    while(p != NULL){
+        printf("%d ", p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
+
+int count_doubly_LL(doubly_Node *p){
+    int count = 0;
+    while(p != NULL){
+        count++;
+        p = p->next;
+    }
+    return count;
+}
+
+void insert_doubly_LL(doubly_Node **first, int n, int x){
+    
+    doubly_Node *new_node = (doubly_Node*)malloc(sizeof(doubly_Node));
+    new_node->prev = NULL;
+    new_node->next = NULL;
+    new_node->data = x;
+
+    doubly_Node *p = *first;
+    doubly_Node *q = NULL;
+    if(n == 0){
+        new_node->next = *first;
+        (*first)->prev = new_node;
+        *first = new_node;
+    }
+    else{
+        for(int i = 0; (i < n-1) && (p != NULL); i++){
+            p = p->next;
+        }
+        if(p){
+            new_node->next = p->next;
+            new_node->prev = p;
+            if(p->next) (p->next)->prev = new_node;
+            p->next = new_node;
+        }
+    }
+}
+
+int delete_doubly_LL(doubly_Node **first, int n){
+    
+    doubly_Node *p = *first;
+    int r;
+    if(n == 0){
+        *first = (*first)->next;
+        if(*first) (*first)->prev = NULL;
+        r = p->data;
+        free(p);
+        return r;
+    }
+    else{
+        for(int i = 0; (i < n) && (p != NULL); i++){
+            p = p->next;
+        }
+        if(p){
+            (p->prev)->next = p->next;
+            if(p->next) (p->next)->prev = p->prev;
+            r = p->data;
+            free(p);
+        }
+    }
+}
+
+void reverse_doubly_LL(doubly_Node **first){
+    
+    doubly_Node *p = *first;
+    doubly_Node *temp = NULL;
+    while(p != NULL){
+        if(p->next == NULL) {
+            *first = p;
+        }
+        temp = p->next;
+        p->next = p->prev;
+        p->prev = temp;
+        p = p->prev;
+    }
+}
+
+//main function for linked lists
+/*
+int main(void)
+{
+    //Create functions and structures for each of the tasks 
+    //in respective header files and call them here
+    
+    int arr[5] = {3,5,6,9,10};
+    Node *first_LL = NULL;
+    create_LL_array(arr, 5, &first_LL);
+    display_LL(first_LL);
+    printf("\n");
+    display_LL_recursive(first_LL);
+    printf("\n");
+    printf("%d", count_LL(first_LL));
+    printf("\n");
+    printf("%d", sum_elements_LL(first_LL));
+    printf("\n");
+    printf("%d", max_element_LL(first_LL));
+    printf("\n");
+    printf("%d", min_element_LL(first_LL));
+    printf("\n");
+    printf("%d", get_LL(first_LL, linear_search_LL(first_LL, 9)));
+    printf("\n");
+    
+    // Node *head = (struct Node*)malloc(sizeof(struct Node)*(4));
+    Node *head = NULL;
+    
+    insert_LL(&head, 0, 1);
+    insert_LL(&head, 1, 1);
+    insert_LL(&head, 2, 2);
+    insert_LL(&head, 3, 3);
+    insert_LL(&head, 4, 3);
+    insert_LL(&head, 5, 7);
+    insert_LL(&head, 6, 8);
+    insert_LL(&head, 7, 8);
+    
+    display_LL(head);
+    printf("\n");
+    insert_sorted_LL(&head, 5);
+    insert_sorted_LL(&head, -1);
+    insert_sorted_LL(&head, 4);
+    display_LL(head);
+    printf("Deleted element: %d", delete_LL(&head, 3));
+    printf("%d\n", check_sorted_LL(head));
+    delete_duplicate_LL(&head);
+    display_LL(head);
+    reverse_LL(&head);
+    display_LL(head);
+    printf("- Reversed links\n");
+    reverse_recusrion_LL(&head, NULL, head);
+    display_LL(head);
+    printf("- Reversed links via recursion\n");
+    reverse_elements_LL(head);
+    display_LL(head);
+    printf("- Displaying reverse\n");
+    
+    int arr1[5] = {3,5,6,9,10};
+    int arr2[5] = {1,2,4,7,9};
+    Node *first = NULL;
+    Node *second = NULL;
+    create_LL_array(arr1, 5, &first);
+    create_LL_array(arr2, 5, &second);
+    printf("First: ");
+    display_LL(first);
+    printf("\n");
+    printf("Second: ");
+    display_LL(second);
+    printf("\n");
+    printf("Merged List: ");
+    Node *third = NULL;
+    merge_sorted_LL(&first, &second, &third);
+    display_LL(third);
+    
+    create_circular_LL_array(arr, 5, &head);
+    display_circular_LL(head);
+    insert_circular_LL(&head, 0, 0);
+    insert_circular_LL(&head, 1, 1);
+    insert_circular_LL(&head, 2, 2);
+    insert_circular_LL(&head, 3, 3);
+    insert_circular_LL(&head, 4, 4);
+    insert_circular_LL(&head, 5, 5);
+    // printf("%d", count_circular_LL(head));
+    // // insert_circular_LL(&head, -2, 0);
+    display_circular_LL(head);
+    printf("\n");
+    delete_circular_LL(&head, 2);
+    display_circular_LL(head);
+    printf("\n");
+    delete_circular_LL(&head, 4);
+    display_circular_LL(head);
+    printf("\n");
+    delete_circular_LL(&head, 5);
+    display_circular_LL(head);
+    doubly_Node *head1 = NULL;
+    create_doubly_LL_array(arr, 5, &head1);
+    display_doubly_LL(head1);
+    insert_doubly_LL(&head1, 0, -666);
+    insert_doubly_LL(&head1, 6, 666);
+    display_doubly_LL(head1);
+    delete_doubly_LL(&head1, 0);
+    delete_doubly_LL(&head1, 3);
+    delete_doubly_LL(&head1, 4);
+    display_doubly_LL(head1);
+    reverse_doubly_LL(&head1);
+    display_doubly_LL(head1);
+    
+    
+
+    printf("\n\n");
+    return 0;
+}
+*/
+

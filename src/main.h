@@ -55,6 +55,24 @@ typedef struct Node{
     struct Node *next;
 } Node;
 
+typedef struct doubly_Node{
+    struct doubly_Node* prev;
+    int data;
+    struct doubly_Node* next;
+} doubly_Node;
+
+typedef struct sparseMatrix_Node{
+    int col;
+    int val;
+    struct sparseMatrix_Node* next;
+} sparseMatrix_Node;
+
+typedef struct Polynomial_Node{
+    int coeff;
+    int expo;
+    struct Polynomial_Node *next;
+} Polynomial_Node;
+
 /*-------FUNCTION-PROTOTYPES-------*/
 
 /*--------functions-basic----------*/
@@ -150,3 +168,14 @@ void display_circular_LL(Node *);
 int count_circular_LL(Node *);
 void create_circular_LL_array(int [], int, Node **);
 void insert_circular_LL(Node **, int, int);
+int delete_circular_LL(Node **, int);
+void create_doubly_LL_array(int [], int, doubly_Node **);
+void display_doubly_LL(doubly_Node *);
+int count_doubly_LL(doubly_Node *);
+void insert_doubly_LL(doubly_Node **, int, int);
+int delete_doubly_LL(doubly_Node **, int);
+void reverse_doubly_LL(doubly_Node **);
+sparseMatrix_Node** sparse_matrix_LL(int [][6], int, int);
+void display_sparseMatrix_LL(sparseMatrix_Node **, int, int);
+void Initialize_polynomial_LL(Polynomial_Node **);
+void display_polynomial_LL(Polynomial_Node *);
